@@ -128,11 +128,7 @@ class APIController {
             }
             
             completion(nil)
-            
-            
         }.resume()
-        
-        
     }
     
     
@@ -140,7 +136,5 @@ class APIController {
     
     
     
-    // create function for fetching all animal names
     
-    // create function to fetch image
 }

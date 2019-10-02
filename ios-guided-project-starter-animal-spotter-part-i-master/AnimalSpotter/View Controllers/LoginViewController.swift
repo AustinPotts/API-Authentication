@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if loginType == .signUp {
            signUp(with: user)
         } else {
-            
+            signIn(with: user)
         }
         
     }
@@ -75,6 +75,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         })
         
     }
+    
+    func signIn(with user: User){
+        apiController?.signIn(with: user, completion: { (error) in
+            if let error = error {
+                NSLog("Error\(error)")
+                
+            } else {
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
+            }
+        })
+    }
+    
+    
+    
     
     @IBAction func signInTypeChanged(_ sender: UISegmentedControl) {
         // switch UI between login types
