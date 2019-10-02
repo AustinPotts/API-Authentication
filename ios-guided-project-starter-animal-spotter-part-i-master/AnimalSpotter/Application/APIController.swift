@@ -25,6 +25,9 @@ enum NetworkError: Error{
 
 class APIController {
     
+    
+    var bearer: Bearer?
+    
     private let baseUrl = URL(string: "https://lambdaanimalspotter.vapor.cloud/api")!
     
     // create function for sign up
@@ -72,7 +75,70 @@ class APIController {
     }
     
     
-    // create function for sign in
+    // create function for log in
+    
+    func signIn(with user: User, completion: @escaping(NetworkError?)-> Void){
+        
+        //Build Url
+        let loginURL = baseUrl.appendingPathComponent("users").appendingPathComponent("login")
+        
+        //Build request
+        var request = URLRequest(url: loginURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let encoder = JSONEncoder()
+        
+        do {
+            request.httpBody = try encoder.encode(user)
+        } catch {
+            NSLog("Error: \(error)")
+            completion(.ecodingError)
+            return
+        }
+        
+        //Perform the request
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let response = response as? HTTPURLResponse,
+                response.statusCode != 200{
+                completion(.noData)
+                return
+            }
+            
+            if let error = error {
+                NSLog("Error fetching data tasks: \(error)")
+                completion(.otherError(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.noData)
+                return
+            }
+            
+            do {
+                let bearer = try JSONDecoder().decode(Bearer.self, from: data)
+                
+                self.bearer = bearer
+            } catch {
+                completion(.noData)
+                return
+                
+            }
+            
+            completion(nil)
+            
+            
+        }.resume()
+        
+        
+    }
+    
+    
+    
+    
+    
     
     // create function for fetching all animal names
     
