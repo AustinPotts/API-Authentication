@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		45472F5C2345073600EB74F4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45472F5B2345073600EB74F4 /* User.swift */; };
 		45472F5E23451A4700EB74F4 /* Bearer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45472F5D23451A4700EB74F4 /* Bearer.swift */; };
+		45472F602346678100EB74F4 /* DetailAnimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45472F5F2346678100EB74F4 /* DetailAnimalViewController.swift */; };
+		45472F62234668F800EB74F4 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45472F61234668F800EB74F4 /* Animal.swift */; };
 		CEDCA57B22668AB2009EA535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDCA57A22668AB2009EA535 /* AppDelegate.swift */; };
 		CEDCA58022668AB2009EA535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEDCA57E22668AB2009EA535 /* Main.storyboard */; };
 		CEDCA58222668AB2009EA535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEDCA58122668AB2009EA535 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* Begin PBXFileReference section */
 		45472F5B2345073600EB74F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		45472F5D23451A4700EB74F4 /* Bearer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bearer.swift; sourceTree = "<group>"; };
+		45472F5F2346678100EB74F4 /* DetailAnimalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAnimalViewController.swift; sourceTree = "<group>"; };
+		45472F61234668F800EB74F4 /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
 		CEDCA57722668AB2009EA535 /* AnimalSpotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AnimalSpotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEDCA57A22668AB2009EA535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEDCA57F22668AB2009EA535 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,6 +50,7 @@
 		CEDCA56E22668AB2009EA535 = {
 			isa = PBXGroup;
 			children = (
+				45472F61234668F800EB74F4 /* Animal.swift */,
 				45472F5D23451A4700EB74F4 /* Bearer.swift */,
 				45472F5B2345073600EB74F4 /* User.swift */,
 				CEDCA57922668AB2009EA535 /* AnimalSpotter */,
@@ -86,6 +91,7 @@
 		CEDCA5982266967E009EA535 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				45472F5F2346678100EB74F4 /* DetailAnimalViewController.swift */,
 				CEDCA58E22668BCF009EA535 /* AnimalsTableViewController.swift */,
 				CEDCA59022668D0F009EA535 /* LoginViewController.swift */,
 			);
@@ -164,8 +170,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEDCA59A226697BD009EA535 /* APIController.swift in Sources */,
+				45472F62234668F800EB74F4 /* Animal.swift in Sources */,
 				CEDCA59122668D0F009EA535 /* LoginViewController.swift in Sources */,
 				45472F5E23451A4700EB74F4 /* Bearer.swift in Sources */,
+				45472F602346678100EB74F4 /* DetailAnimalViewController.swift in Sources */,
 				CEDCA57B22668AB2009EA535 /* AppDelegate.swift in Sources */,
 				45472F5C2345073600EB74F4 /* User.swift in Sources */,
 				CEDCA58F22668BCF009EA535 /* AnimalsTableViewController.swift in Sources */,

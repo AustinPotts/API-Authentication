@@ -150,7 +150,7 @@ class APIController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         
-        request.setValue("Bearer\(bearer.token)", forHTTPHeaderField: HeaderNames.authoriaztion.rawValue)
+        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: HeaderNames.authoriaztion.rawValue)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
@@ -187,6 +187,59 @@ class APIController {
     }
     
     
+    
+    
+    func getAnimal(with name: String, completion: @escaping(Result<Animal, NetworkError>)-> Void){
+        
+        guard let bearer = bearer else {
+            completion(.failure(.noToken))
+            return
+        }
+        
+        let requestURL = baseUrl.appendingPathComponent("animals")
+            .appendingPathComponent(name)
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request){(data,response,error) in
+            
+            if let response = response as? HTTPURLResponse,
+                response.statusCode != 200 {
+                completion(.failure(.responseError))
+                return
+            }
+            
+            if let error = error {
+                NSLog("Error getting animal details: \(error)")
+                completion(.failure(.otherError(error)))
+                return
+            }
+            
+            
+            guard let data = data else{
+                completion(.failure(.noData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                let animal = try decoder.decode(Animal.self, from: data)
+                completion(.success(animal))
+            } catch {
+                NSLog("Error decoding animal: \(error)")
+                completion(.failure(.noDecode))
+                return
+                
+                
+            }
+            
+        }.resume()
+        
+        
     
     
     
