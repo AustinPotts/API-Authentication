@@ -23,6 +23,11 @@ enum NetworkError: Error{
     case noToken
 }
 
+enum HeaderNames: String {
+    case authoriaztion = "Authorization"
+    case contentType = "json"
+}
+
 class APIController {
     
     
@@ -130,6 +135,58 @@ class APIController {
             completion(nil)
         }.resume()
     }
+    
+    // The result enum is going to have a success type of array of strings or a network error failure
+    func fetchAllAnimalNAmes(completion: @escaping(Result<[String], NetworkError>)-> Void){
+        
+        guard let bearer = bearer else {
+            completion(.failure(.noToken))
+            return
+        }
+        
+        
+        let requestURL = baseUrl.appendingPathComponent("animals").appendingPathComponent("all")
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethod.get.rawValue
+        
+        request.setValue("Bearer\(bearer.token)", forHTTPHeaderField: HeaderNames.authoriaztion.rawValue)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            if let error = error {
+                NSLog("Error: \(error)")
+                completion(.failure(.otherError(error)))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse,
+                response.statusCode != 200 {
+                completion(.failure(.responseError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.noData))
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                
+               let animalNames = try decoder.decode([String].self, from: data)
+                completion(.success(animalNames))
+            } catch {
+                NSLog("Error decoding animals name: \(error)")
+                completion(.failure(.noDecode))
+                return
+            }
+            
+        }.resume()
+    }
+    
+    
     
     
     
