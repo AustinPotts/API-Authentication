@@ -202,7 +202,8 @@ class APIController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         
-        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: "Authorization")
+        //Required Auth for backend
+        request.setValue("Bearer \(bearer.token)", forHTTPHeaderField: HeaderNames.authoriaztion.rawValue)
         
         URLSession.shared.dataTask(with: request){(data,response,error) in
             
@@ -238,13 +239,31 @@ class APIController {
             }
             
         }.resume()
+    }
+    
+    func fetchImage(at urlString: String, completion: @escaping (UIImage?)-> Void){
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
         
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error fetching image: \(error)")
+                completion(nil)
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("Error fetching data for image:")
+                completion(nil)
+                return
+            }
+            
+            let image = UIImage(data: data)
+            completion(image)
+            
+        }.resume()
         
-    
-    
-    
-    
-    
-    
-    
+    }
 }
